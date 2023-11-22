@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createUserService } from './user.service';
+import { createUserService, getAllUsersService } from './user.service';
 import { validateUser } from './user.validation';
 
 // Controller function for creating a new user
@@ -33,6 +33,34 @@ export const createUserController = async (
     res.status(400).json({
       success: false,
       message: 'Failed to create user!',
+      error: {
+        code: 400,
+        description: error.message,
+      },
+    });
+  }
+};
+
+// Controller function for getting all users
+export const getAllUsersController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    // Get all users using the service function
+    const users = await getAllUsersService();
+
+    // Send the response
+    res.status(200).json({
+      success: true,
+      message: 'Users fetched successfully!',
+      data: users,
+    });
+  } catch (error: any) {
+    // Handle errors, send an appropriate response
+    res.status(400).json({
+      success: false,
+      message: 'Failed to fetch users!',
       error: {
         code: 400,
         description: error.message,
