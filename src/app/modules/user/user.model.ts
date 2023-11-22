@@ -59,6 +59,7 @@ const userSchema: Schema<IUser> = new Schema({
   isActivate: {
     type: Boolean,
     required: true,
+    default: true,
   },
 
   hobbies: {
