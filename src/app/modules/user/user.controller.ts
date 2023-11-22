@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import {
   createUserService,
+  deleteUserService,
   getAllUsersService,
   getUserByIdService,
 } from './user.service';
@@ -90,6 +91,37 @@ export const getUserByIdController = async (
       success: true,
       message: 'User fetched successfully!',
       data: user,
+    });
+  } catch (error: any) {
+    // Handle errors, send an appropriate response
+    res.status(400).json({
+      success: false,
+      message: 'Failed to fetch user!',
+      error: {
+        code: 400,
+        description: error.message,
+      },
+    });
+  }
+};
+
+// Controller function for deleting a user by userId
+export const deleteUserController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    // Get the user id from the request params
+    const { userId } = req.params;
+
+    // Get the user using the service function
+    await deleteUserService(userId);
+
+    // Send the response
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully!',
+      data: null,
     });
   } catch (error: any) {
     // Handle errors, send an appropriate response
