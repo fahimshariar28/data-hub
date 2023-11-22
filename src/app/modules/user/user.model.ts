@@ -1,5 +1,8 @@
 import { Schema, model } from 'mongoose';
 import { TFullName, TAddress, TOrder, IUser } from './user.interface';
+import { NextFunction } from 'express';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 // MongoDB schema for the full name
 const fullNameSchema: Schema<TFullName> = new Schema({
@@ -75,6 +78,17 @@ const userSchema: Schema<IUser> = new Schema({
   orders: {
     type: [orderSchema],
   },
+});
+
+// pre hook for the user schema
+userSchema.pre<IUser>('save', async function (next: NextFunction) {
+  //   Making password hash
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
 });
 
 // Create and export the mongoose model
