@@ -19,7 +19,7 @@ export type TOrder = {
 };
 
 // Type for User
-export type TUser = {
+export type IUser = {
   userId: number;
   userName: string;
   password: string;
