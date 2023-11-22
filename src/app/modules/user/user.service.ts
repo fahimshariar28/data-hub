@@ -1,4 +1,4 @@
-import { IUser } from './user.interface';
+import { IUser, TOrder } from './user.interface';
 import { userModel } from './user.model';
 
 // Service function to create a new user
@@ -39,4 +39,16 @@ export async function updateUserService(
 export async function deleteUserService(userId: string): Promise<IUser | null> {
   const deletedUser = await userModel.findOneAndDelete({ userId: userId });
   return deletedUser;
+}
+
+// Service function to add an order to a user
+export async function addOrderService(
+  userId: string,
+  orderData: TOrder,
+): Promise<IUser | null> {
+  const updatedUser = await userModel.findOneAndUpdate(
+    { userId: userId },
+    { $push: { orders: orderData } },
+  );
+  return updatedUser;
 }
