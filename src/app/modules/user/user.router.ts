@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { createUserController, getAllUsersController } from './user.controller';
+import {
+  createUserController,
+  getAllUsersController,
+  getUserByIdController,
+} from './user.controller';
 
 const router = Router();
 
@@ -8,5 +12,8 @@ router.post('/', createUserController);
 
 // GET endpoint for getting all users
 router.get('/', getAllUsersController);
+
+// GET endpoint for getting a user by id
+router.get('/:userId', getUserByIdController);
 
 export const UserRoutes = router;
