@@ -4,6 +4,7 @@ import {
   createUserController,
   deleteUserController,
   getAllUsersController,
+  getOrdersController,
   getUserByIdController,
   updateUserController,
 } from './user.controller';
@@ -27,5 +28,8 @@ router.delete('/:userId', deleteUserController);
 
 // Add order endpoint for adding an order to a user
 router.put('/:userId/orders', addOrderController);
+
+// Get orders endpoint for getting orders of a user
+router.get('/:userId/orders', getOrdersController);
 
 export const UserRoutes = router;
