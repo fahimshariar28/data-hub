@@ -10,7 +10,6 @@ export const createUserController = async (
   try {
     // Get the user data from the request body
     const user = req.body;
-    console.log(req);
 
     //   Check if the user.hobbies is an array. If not, make it an array.
     if (!Array.isArray(user.hobbies)) {
