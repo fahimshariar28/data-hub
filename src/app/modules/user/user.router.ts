@@ -4,6 +4,7 @@ import {
   deleteUserController,
   getAllUsersController,
   getUserByIdController,
+  updateUserController,
 } from './user.controller';
 
 const router = Router();
@@ -16,6 +17,9 @@ router.get('/', getAllUsersController);
 
 // GET endpoint for getting a user by id
 router.get('/:userId', getUserByIdController);
+
+// Update endpoint for updating a user by id
+router.put('/:userId', updateUserController);
 
 // Delete endpoint for deleting a user by id
 router.delete('/:userId', deleteUserController);
