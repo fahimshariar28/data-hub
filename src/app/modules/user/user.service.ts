@@ -60,3 +60,14 @@ export async function getOrdersService(
   const user = await userModel.findOne({ userId: userId });
   return user?.orders || null;
 }
+
+// Calculate the total price of the orders of a user
+export async function calculateTotalPriceService(
+  userId: string,
+): Promise<number> {
+  const user = await userModel.findOne({ userId: userId });
+  const totalPrice = user?.orders?.reduce((acc, order) => {
+    return acc + order.price * order.quantity;
+  }, 0);
+  return totalPrice || 0;
+}
