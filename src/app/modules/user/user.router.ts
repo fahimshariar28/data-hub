@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  addOrderController,
   createUserController,
   deleteUserController,
   getAllUsersController,
@@ -23,5 +24,8 @@ router.put('/:userId', updateUserController);
 
 // Delete endpoint for deleting a user by id
 router.delete('/:userId', deleteUserController);
+
+// Add order endpoint for adding an order to a user
+router.put('/:userId/orders', addOrderController);
 
 export const UserRoutes = router;
