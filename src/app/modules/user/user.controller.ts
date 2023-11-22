@@ -240,3 +240,42 @@ export const getOrdersController = async (
     });
   }
 };
+
+// Controller function for calculating the total price of orders of a user
+export const calculateTotalPriceController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    // Get the user id from the request params
+    const { userId } = req.params;
+
+    // Get the orders of the user using the service function
+    const orders = await getOrdersService(userId);
+
+    // Calculate the total price of the orders
+    let totalPrice = 0;
+    orders?.forEach((order) => {
+      totalPrice += order.price * order.quantity;
+    });
+
+    // Send the response
+    res.status(200).json({
+      success: true,
+      message: 'Total price calculated successfully!',
+      data: {
+        totalPrice: totalPrice.toFixed(2),
+      },
+    });
+  } catch (error: any) {
+    // Handle errors, send an appropriate response
+    res.status(400).json({
+      success: false,
+      message: 'Failed to calculate total price!',
+      error: {
+        code: 400,
+        description: error.message,
+      },
+    });
+  }
+};
