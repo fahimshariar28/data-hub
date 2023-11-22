@@ -14,3 +14,11 @@ export async function getAllUsersService(): Promise<IUser[]> {
   const users = await userModel.find();
   return users;
 }
+
+// Service function to get a user by id
+export async function getUserByIdService(
+  userId: string,
+): Promise<IUser | null> {
+  const user = await userModel.findOne({ userId: userId });
+  return user;
+}
