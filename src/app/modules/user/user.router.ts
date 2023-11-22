@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   addOrderController,
+  calculateTotalPriceController,
   createUserController,
   deleteUserController,
   getAllUsersController,
@@ -31,5 +32,8 @@ router.put('/:userId/orders', addOrderController);
 
 // Get orders endpoint for getting orders of a user
 router.get('/:userId/orders', getOrdersController);
+
+// Calculate total price endpoint for calculating total price of orders of a user
+router.get('/:userId/orders/total-price', calculateTotalPriceController);
 
 export const UserRoutes = router;
