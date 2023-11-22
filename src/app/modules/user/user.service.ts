@@ -7,3 +7,10 @@ export async function createUserService(userData: IUser): Promise<IUser> {
   const newUser = await userModel.create(userData);
   return newUser;
 }
+
+// Service function to get all users
+export async function getAllUsersService(): Promise<IUser[]> {
+  // Get all users using the mongoose model
+  const users = await userModel.find();
+  return users;
+}
