@@ -23,6 +23,18 @@ export async function getUserByIdService(
   return user;
 }
 
+// Service function to update a user by id
+export async function updateUserService(
+  userId: string,
+  userData: IUser,
+): Promise<IUser | null> {
+  const updatedUser = await userModel.findOneAndUpdate(
+    { userId: userId },
+    userData,
+  );
+  return updatedUser;
+}
+
 // Service function to delete a user by id
 export async function deleteUserService(userId: string): Promise<IUser | null> {
   const deletedUser = await userModel.findOneAndDelete({ userId: userId });
