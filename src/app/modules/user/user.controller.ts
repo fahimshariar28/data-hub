@@ -4,6 +4,7 @@ import {
   deleteUserService,
   getAllUsersService,
   getUserByIdService,
+  updateUserService,
 } from './user.service';
 import { validateUser } from './user.validation';
 
@@ -91,6 +92,43 @@ export const getUserByIdController = async (
       success: true,
       message: 'User fetched successfully!',
       data: user,
+    });
+  } catch (error: any) {
+    // Handle errors, send an appropriate response
+    res.status(400).json({
+      success: false,
+      message: 'Failed to fetch user!',
+      error: {
+        code: 400,
+        description: error.message,
+      },
+    });
+  }
+};
+
+// Controller function for updating a user by userId
+export const updateUserController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    // Get the user id from the request params
+    const { userId } = req.params;
+
+    // Get the user data from the request body
+    const userData = req.body;
+
+    // Validate the incoming user data
+    const validatedUser = validateUser(userData);
+
+    // Update the user using the service function
+    const updatedUser = await updateUserService(userId, validatedUser);
+
+    // Send the response
+    res.status(200).json({
+      success: true,
+      message: 'User updated successfully!',
+      data: updatedUser,
     });
   } catch (error: any) {
     // Handle errors, send an appropriate response
