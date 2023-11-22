@@ -4,6 +4,7 @@ import {
   createUserService,
   deleteUserService,
   getAllUsersService,
+  getOrdersService,
   getUserByIdService,
   updateUserService,
 } from './user.service';
@@ -201,6 +202,37 @@ export const addOrderController = async (
     res.status(400).json({
       success: false,
       message: 'Failed to add order!',
+      error: {
+        code: 400,
+        description: error.message,
+      },
+    });
+  }
+};
+
+// Controller function for getting orders of a user
+export const getOrdersController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    // Get the user id from the request params
+    const { userId } = req.params;
+
+    // Get the orders of the user using the service function
+    const orders = await getOrdersService(userId);
+
+    // Send the response
+    res.status(200).json({
+      success: true,
+      message: 'Orders fetched successfully!',
+      data: orders,
+    });
+  } catch (error: any) {
+    // Handle errors, send an appropriate response
+    res.status(400).json({
+      success: false,
+      message: 'Failed to fetch orders!',
       error: {
         code: 400,
         description: error.message,
