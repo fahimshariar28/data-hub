@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import {
+  addOrderService,
   createUserService,
   deleteUserService,
   getAllUsersService,
@@ -166,6 +167,40 @@ export const deleteUserController = async (
     res.status(400).json({
       success: false,
       message: 'Failed to fetch user!',
+      error: {
+        code: 400,
+        description: error.message,
+      },
+    });
+  }
+};
+
+// Controller function for adding an order to a user
+export const addOrderController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    // Get the user id from the request params
+    const { userId } = req.params;
+
+    // Get the order data from the request body
+    const orderData = req.body;
+
+    // Add the order to the user using the service function
+    const updatedUser = await addOrderService(userId, orderData);
+
+    // Send the response
+    res.status(200).json({
+      success: true,
+      message: 'Order added successfully!',
+      data: updatedUser,
+    });
+  } catch (error: any) {
+    // Handle errors, send an appropriate response
+    res.status(400).json({
+      success: false,
+      message: 'Failed to add order!',
       error: {
         code: 400,
         description: error.message,
