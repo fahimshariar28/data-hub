@@ -52,3 +52,11 @@ export async function addOrderService(
   );
   return updatedUser;
 }
+
+// Service function to get orders of a user
+export async function getOrdersService(
+  userId: string,
+): Promise<TOrder[] | null> {
+  const user = await userModel.findOne({ userId: userId });
+  return user?.orders || null;
+}
