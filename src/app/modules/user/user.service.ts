@@ -22,3 +22,9 @@ export async function getUserByIdService(
   const user = await userModel.findOne({ userId: userId });
   return user;
 }
+
+// Service function to delete a user by id
+export async function deleteUserService(userId: string): Promise<IUser | null> {
+  const deletedUser = await userModel.findOneAndDelete({ userId: userId });
+  return deletedUser;
+}
