@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import {
   addOrderService,
+  calculateTotalPriceService,
   createUserService,
   deleteUserService,
   getAllUsersService,
@@ -251,13 +252,7 @@ export const calculateTotalPriceController = async (
     const { userId } = req.params;
 
     // Get the orders of the user using the service function
-    const orders = await getOrdersService(userId);
-
-    // Calculate the total price of the orders
-    let totalPrice = 0;
-    orders?.forEach((order) => {
-      totalPrice += order.price * order.quantity;
-    });
+    const totalPrice = await calculateTotalPriceService(userId);
 
     // Send the response
     res.status(200).json({
