@@ -31,6 +31,7 @@ export async function updateUserService(
   const updatedUser = await userModel.findOneAndUpdate(
     { userId: userId },
     userData,
+    { new: true },
   );
   return updatedUser;
 }
@@ -49,6 +50,7 @@ export async function addOrderService(
   const updatedUser = await userModel.findOneAndUpdate(
     { userId: userId },
     { $push: { orders: orderData } },
+    { new: true },
   );
   return updatedUser;
 }
