@@ -24,12 +24,12 @@ const orderValidation = z.object({
 // Validation schema for user
 export const userValidation = z.object({
   userId: z.number().min(1),
-  userName: z.string().min(1),
+  username: z.string().min(1),
   password: z.string().min(1),
   fullName: fullNameValidation,
   age: z.number().min(1),
   email: z.string().email(),
-  isActivate: z.boolean(),
+  isActive: z.boolean(),
   hobbies: z.array(z.string().min(1)),
   address: addressValidation,
   orders: z.array(orderValidation).optional(),
