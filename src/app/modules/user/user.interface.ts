@@ -23,12 +23,12 @@ export type TOrder = {
 // Type for User
 export type IUser = {
   userId: number;
-  userName: string;
+  username: string;
   password: string;
   fullName: TFullName;
   age: number;
   email: string;
-  isActivate: boolean;
+  isActive: boolean;
   hobbies: string[];
   address: TAddress;
   orders?: TOrder[];
