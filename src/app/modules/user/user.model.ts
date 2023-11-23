@@ -37,7 +37,7 @@ const userSchema: Schema<IUser, UserModel> = new Schema({
     unique: true,
   },
 
-  userName: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -64,7 +64,7 @@ const userSchema: Schema<IUser, UserModel> = new Schema({
     unique: true,
   },
 
-  isActivate: {
+  isActive: {
     type: Boolean,
     required: true,
     default: true,
