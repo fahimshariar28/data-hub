@@ -46,6 +46,7 @@ const userSchema: Schema<IUser, UserModel> = new Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
 
   fullName: {
@@ -98,31 +99,31 @@ userSchema.pre<IUser>('save', async function (next) {
 
 // Post hook for the user schema
 userSchema.post<IUser>('save', async function (doc, next) {
-  //   Making password field empty
-  doc.password = '';
+  //   Making orders field empty
+  doc.orders = undefined;
 
   next();
 });
 
 userSchema.post('find', async function (docs: IUser[], next) {
-  //   Making password field empty
+  //   Making orders field empty
   docs.forEach((doc) => {
-    doc.password = '';
+    doc.orders = undefined;
   });
 
   next();
 });
 
 userSchema.post('findOne', async function (doc: IUser, next) {
-  //   Making password field empty
-  doc.password = '';
+  //   Making orders field empty
+  doc.orders = undefined;
 
   next();
 });
 
 userSchema.post('findOneAndUpdate', async function (doc: IUser, next) {
-  //   Making password field undefined
-  doc.password = '';
+  //   Making orders field undefined
+  doc.orders = undefined;
 
   next();
 });
