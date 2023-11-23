@@ -122,4 +122,4 @@ userSchema.post('findOneAndUpdate', async function (doc: IUser, next) {
 });
 
 // Create and export the mongoose model
-export const userModel = model<IUser>('User', userSchema);
+export const User = model<IUser>('User', userSchema);
