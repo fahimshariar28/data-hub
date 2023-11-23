@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
 import { TFullName, TAddress, TOrder, IUser } from './user.interface';
-import { NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 
