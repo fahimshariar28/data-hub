@@ -19,7 +19,7 @@ export async function getAllUsersService(): Promise<IUser[]> {
 export async function getUserByIdService(
   userId: string,
 ): Promise<IUser | null> {
-  const user = await User.findOne({ userId: userId });
+  const user = await User.findOne({ userId: userId }).select('-orders');
   return user;
 }
 

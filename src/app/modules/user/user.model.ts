@@ -114,13 +114,6 @@ userSchema.post('find', async function (docs: IUser[], next) {
   next();
 });
 
-userSchema.post('findOne', async function (doc: IUser, next) {
-  //   Making orders field empty
-  doc.orders = undefined;
-
-  next();
-});
-
 userSchema.post('findOneAndUpdate', async function (doc: IUser, next) {
   //   Making orders field undefined
   doc.orders = undefined;
