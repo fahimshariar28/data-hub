@@ -98,10 +98,11 @@ userSchema.pre<IUser>('save', async function (next) {
 });
 
 // Post hook for the user schema
-userSchema.post<IUser>('save', async function (doc, next) {
-  //   Making orders field empty
-  doc.orders = undefined;
-
+userSchema.post('save', async function (doc, next) {
+  const user = await User.findOne(doc._id).select('-password -orders');
+  if (user) {
+    Object.assign(doc, user);
+  }
   next();
 });
 
