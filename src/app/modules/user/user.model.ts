@@ -1,5 +1,11 @@
 import { Schema, model } from 'mongoose';
-import { TFullName, TAddress, TOrder, IUser } from './user.interface';
+import {
+  TFullName,
+  TAddress,
+  TOrder,
+  IUser,
+  UserModel,
+} from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 
@@ -24,7 +30,7 @@ const orderSchema: Schema<TOrder> = new Schema({
 });
 
 // Mongoose schema for the user
-const userSchema: Schema<IUser> = new Schema({
+const userSchema: Schema<IUser, UserModel> = new Schema({
   userId: {
     type: Number,
     required: true,
@@ -121,5 +127,13 @@ userSchema.post('findOneAndUpdate', async function (doc: IUser, next) {
   next();
 });
 
+// Custom static method for the user schema
+userSchema.statics.isUserExist = async function (
+  userId: number,
+): Promise<IUser | null> {
+  const user = await this.findOne({ userId: userId });
+  return user;
+};
+
 // Create and export the mongoose model
-export const User = model<IUser>('User', userSchema);
+export const User = model<IUser, UserModel>('User', userSchema);

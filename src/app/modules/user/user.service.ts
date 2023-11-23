@@ -3,9 +3,16 @@ import { User } from './user.model';
 
 // Service function to create a new user
 export async function createUserService(userData: IUser): Promise<IUser> {
-  // Create the user using the mongoose model
-  const newUser = await User.create(userData);
-  return newUser;
+  // Check if the user already exists
+  const existingUser = await User.isUserExist(userData.userId);
+  if (existingUser) {
+    // Throw an error if the user already exists
+    throw new Error('User already exists!');
+  } else {
+    // Create the user using the mongoose model if the user does not exist
+    const newUser = await User.create(userData);
+    return newUser;
+  }
 }
 
 // Service function to get all users
