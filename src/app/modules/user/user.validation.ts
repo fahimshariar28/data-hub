@@ -42,7 +42,7 @@ export function validateUser(data: unknown): IUser {
   } catch (error) {
     if (error instanceof ZodError) {
       // Handle validation errors, log them, or throw a custom error.
-      throw new Error(`Validation failed: ${error.errors}`);
+      throw new Error(`Validation failed: ${error.message}`);
     }
     throw error;
   }
