@@ -190,13 +190,13 @@ export const addOrderController = async (
     const orderData = req.body;
 
     // Add the order to the user using the service function
-    const updatedUser = await addOrderService(userId, orderData);
+    await addOrderService(userId, orderData);
 
     // Send the response
     res.status(200).json({
       success: true,
       message: 'Order added successfully!',
-      data: updatedUser,
+      data: null,
     });
   } catch (error: any) {
     // Handle errors, send an appropriate response
@@ -227,7 +227,7 @@ export const getOrdersController = async (
     res.status(200).json({
       success: true,
       message: 'Orders fetched successfully!',
-      data: orders,
+      data: { orders },
     });
   } catch (error: any) {
     // Handle errors, send an appropriate response
