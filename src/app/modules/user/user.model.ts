@@ -90,5 +90,36 @@ userSchema.pre<IUser>('save', async function (next) {
   next();
 });
 
+// Post hook for the user schema
+userSchema.post<IUser>('save', async function (doc, next) {
+  //   Making password field empty
+  doc.password = '';
+
+  next();
+});
+
+userSchema.post('find', async function (docs: IUser[], next) {
+  //   Making password field empty
+  docs.forEach((doc) => {
+    doc.password = '';
+  });
+
+  next();
+});
+
+userSchema.post('findOne', async function (doc: IUser, next) {
+  //   Making password field empty
+  doc.password = '';
+
+  next();
+});
+
+userSchema.post('findOneAndUpdate', async function (doc: IUser, next) {
+  //   Making password field undefined
+  doc.password = '';
+
+  next();
+});
+
 // Create and export the mongoose model
 export const userModel = model<IUser>('User', userSchema);
