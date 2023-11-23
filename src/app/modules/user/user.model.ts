@@ -81,7 +81,7 @@ const userSchema: Schema<IUser> = new Schema({
 });
 
 // pre hook for the user schema
-userSchema.pre<IUser>('save', async function (next: NextFunction) {
+userSchema.pre<IUser>('save', async function (next) {
   //   Making password hash
   const user = this;
   user.password = await bcrypt.hash(
